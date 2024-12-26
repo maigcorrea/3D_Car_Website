@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+body{
+    font-family: 'Quicksand',sans-serif;
+    background-color: black;
+    margin: 0;
+    color: whitesmoke;
+}
+
+.slider{
+    background-image: radial-gradient(#8b8b8b, #1d252e);
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+#dCanvas{
+    height: 100vh;
+    cursor:grab;
+}
