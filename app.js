@@ -87,3 +87,61 @@ function animate(){ //Se ejecutará continuamente para renderizar la escena y ac
 
 //inicia el ciclo de renderizado y actualización de la escena. Una vez llamada, requestAnimationFrame asegura que la función se ejecute de forma continua, creando la animación.
 animate();
+
+
+
+
+//DESCRIPTIONS
+let slider=document.querySelector(".slider");
+let btnShowMore=document.getElementById("showMore");
+
+let statusContent="contentOne";//Variable que lleva un seguimiento del estado actual del contenido visible. Inicialmente se establece como "contentOne".
+
+
+//Create function animation change position camera - Propósito: mover suavemente la cámara a una nueva posición (x, y, z) utilizando una animación creada con la biblioteca TWEEN.js. La animación incluye una transición suave (easing) y actualiza la vista de la cámara para enfocarse en el centro de la escena.
+function runCamera(x,y,z){
+    //Create position camera
+    let targetPosition=new THREE.Vector3(x,y,z);//Creación de un nuevo vector 3d que representa la posición objetivo a la que se quiere mover la cámara
+    //let duration (time run animation)
+    let duration=1200; //ms
+
+    let tween=new TWEEN.Tween(camera.position)//Se crea una nueva animación que afectará la posición de la cámara
+    .to(targetPosition, duration)//Especifica la posición objetivo (targetPosition) y la duración de la animación (duration).
+    .easing(TWEEN.Easing.Quadratic.InOut)//Define un suavizado para la animación: Quadratic.InOut aplica un efecto donde la animación comienza lenta, acelera en el medio y vuelve a ralentizarse al final, creando una transición fluida.
+    .onUpdate(()=>{//Función que se ejecuta en cada cuadro (frame) durante la animación.
+        camera.lookAt(scene.position);//Mantiene la cámara enfocada hacia el centro de la escena (scene.position) mientras se mueve
+        renderer.render(scene, camera);//Renderiza la escena desde la nueva posición de la cámara. Esto es necesario para que los cambios en la posición de la cámara sean visibles en la pantalla.
+    })
+    .start();//Inicia la animación, activando los cálculos y la transición hacia la posición objetivo.
+}
+
+
+
+
+//Create function to alternate content when button is pressed
+btnShowMore.onclick= () =>{ //Función que se ejecutará cada vez que se haga clic en el botón btnShowMore.
+    //Elimina las clases contentOneAction y contentTwoAction del elemento slider. Esto asegura que no haya conflicto de estilos antes de añadir una nueva clase en función del estado
+    slider.classList.remove("contentOneAction");
+    slider.classList.remove("contentTwoAction");
+    
+    //Alternar entre estados
+    switch (statusContent) {//Revisa el valor actual de statusContent y realiza una acción según el caso
+        case "contentOne"://dos
+            runCamera(3,0,1);
+            slider.classList.add("contentTwoAction");//Se añade la clase contentTwoAction al elemento slider.
+            statusContent="contentTwo";//Se actualiza el estado a "contentTwo", indicando que ahora el contenido visible es el segundo.
+            break;
+        case "contentTwo"://tres
+            runCamera(2,3,1);
+            statusContent="fullScreen";//Cambia el estado a "fullScreen". Esto podría ser usado para mostrar la escena 3D a pantalla completa
+            break;
+        case "fullScreen"://uno
+            runCamera(5,0,1);
+            statusContent="contentOne";//Cambia el estado de nuevo a "contentOne".
+            slider.classList.add("contentOneAction");//Se añade la clase contentOneAction al slider, volviendo al contenido inicial.
+            break;
+    
+        default:
+            break;
+    }
+}

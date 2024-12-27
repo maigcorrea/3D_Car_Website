@@ -112,6 +112,7 @@ body{
 /* BOTÓN PARA MOSTRAR EL CONTENIDO2 AL PRESIONARLO */
 button#showMore{
     position: absolute;
+    cursor:pointer;
     bottom: 10%;
     left: 50%;
     transform:translateX(-50%);
