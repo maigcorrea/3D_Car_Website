@@ -138,10 +138,24 @@ btnShowMore.onclick= () =>{ //Función que se ejecutará cada vez que se haga cl
         case "fullScreen"://uno
             runCamera(5,0,1);
             statusContent="contentOne";//Cambia el estado de nuevo a "contentOne".
-            slider.classList.add("contentOneAction");//Se añade la clase contentOneAction al slider, volviendo al contenido inicial.
+            slider.classList.add("contentOneAction");//Se añade la clase contentOneAction al slider, volviendo al contenido inicial
             break;
     
         default:
             break;
     }
 }
+
+
+
+//RESPONSIVE
+//Add event to the resize window
+window.addEventListener("resize",()=>{//Cada vez que la ventana cambia de tamaño, se ejecuta la función proporcionada como callback
+    //canvasform.offsetWidth y canvasform.offsetHeight obtienen el ancho y alto actual del elemento HTML donde está el lienzo 3D (canvasform)
+    width=canvasform.offsetWidth;
+    height=canvasform.offsetHeight;
+    //Actualizar relación de aspecto de la cámara
+    camera.aspect=width/height;//La propiedad aspect de la cámara establece la relación de aspecto (proporción ancho/alto) de la perspectiva. La relación se recalcula usando las nuevas dimensiones del contenedor
+    camera.updateProjectionMatrix();//recalcula internamente los parámetros de la cámara (incluyendo la proyección de perspectiva) para que coincidan con la nueva relación de aspecto. Esto asegura que la escena siga siendo visualizada correctamente tras el cambio de tamaño
+    renderer.setSize(width, height);//actualiza el tamaño del lienzo 3D (renderer) para que coincida con las dimensiones del contenedor (canvasform)
+})

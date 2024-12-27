@@ -122,3 +122,45 @@ button#showMore{
     color: #eee;
     padding:10px 20px;
 }
+
+
+/* RESPONSIVE MOBILE*/
+@media  screen and (max-width:768px) {
+    #dCanvas{
+        /* Cambia la altura del contenedor del canvas (#dCanvas) al 40% de la altura de la ventana del navegador (40vh). */
+        /* Esto asegura que el lienzo 3D no ocupe demasiado espacio vertical en dispositivos móviles. */
+        height: 40vh;
+    }
+
+    .contentOne, .contentTwo{
+        position: relative;
+        width: 90%;
+        height: auto;
+        opacity: 1!important; /* No hay transiciones, se hace 100% visible en todo momento */
+        text-align: center;
+        padding: 10px 0 0 5%;
+        /* Restaura las propiedades de posicionamiento para que no interfieran con la nueva posición relativa. */
+        top: unset;
+        left: unset;
+        right: unset;
+        bottom: unset;
+    }
+
+    .contentOne h1{
+        font-size: large;  
+    }
+
+    .contentTwo ul li span:nth-child(1){
+        font-size: medium;
+    }
+
+    .contentTwo ul{
+        padding: 20px; /*Añade un espacio interno uniforme de 20px en todos los lados del elemento <ul>*/
+        box-sizing: border-box;/*Cambia el cálculo del tamaño del elemento para incluir el padding y bordes en las dimensiones declaradas, evitando desbordamientos*/
+        gap: 20px;
+    }
+
+    .slider #showMore{
+        display: none;/* El botón desaparece, no hay transiciones*/
+    }
+}
